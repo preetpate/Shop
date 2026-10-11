@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chai &amp; Co</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;700;800&family=Nunito+Sans:wght@400;600;700&display=swap">
+<style>
+:root{--bg:#ffffff;--soft:#f3f6f1;--green:#0b3d2e;--green2:#14594a;--saf:#f2a900;--ink:#17231f;--mute:#5b6a64;--line:#dfe6e1;--font-d:'Sora',system-ui,sans-serif;--font-b:'Nunito Sans',system-ui,sans-serif;color-scheme:light}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-b);font-size:16px;line-height:1.55}
+a{color:inherit;text-decoration:none}h1,h2,h3,p{margin:0}h1,h2,h3{font-family:var(--font-d);letter-spacing:-.02em;line-height:1.1;text-wrap:balance}
+button{font:inherit;cursor:pointer}:focus-visible{outline:3px solid var(--saf);outline-offset:2px}
+.w{max-width:1160px;margin-inline:auto;padding-inline:20px}
+.demo{background:var(--saf);color:var(--green);font-size:13px;text-align:center;padding:7px 16px;font-weight:700}
+.ship{background:var(--green);color:#cfe5da;text-align:center;font-size:13.5px;padding:8px 16px}
+header{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+header .w{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-block:14px}
+.logo{font-family:var(--font-d);font-weight:800;font-size:22px;color:var(--green)}.logo i{font-style:normal;color:var(--saf)}
+nav{display:flex;gap:26px;font-weight:700;font-size:15px;color:var(--mute)}nav a:hover{color:var(--green)}
+.cartbtn{position:relative;display:flex;align-items:center;gap:8px;background:var(--green);color:#fff;border:0;border-radius:999px;padding:10px 18px;font-weight:700}
+.cartbtn b{background:var(--saf);color:var(--green);min-width:22px;height:22px;border-radius:99px;display:grid;place-items:center;font-size:13px;padding-inline:6px}
+.hero{background:var(--soft)}.hero .w{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding-block:64px}
+.hero h1{font-size:clamp(38px,6vw,68px);font-weight:800;color:var(--green)}
+.hero p{color:var(--mute);font-size:18px;margin:18px 0 28px;max-width:460px}
+.btn{display:inline-block;background:var(--green);color:#fff;padding:14px 26px;border-radius:12px;font-weight:700;border:0;transition:transform .2s,background .2s}.btn:hover{background:var(--green2);transform:translateY(-2px)}
+.tins{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:end}
+.tin{aspect-ratio:3/4;border-radius:16px;display:flex;flex-direction:column;justify-content:flex-end;padding:14px;color:#fff;font-family:var(--font-d);font-weight:800;font-size:15px;line-height:1.1;position:relative;overflow:hidden}
+.tin::before{content:"";position:absolute;top:0;left:0;right:0;height:14%;background:rgba(0,0,0,.18)}
+.tin small{font:600 11px var(--font-b);opacity:.85;margin-top:4px}
+.tins .tin:nth-child(2){transform:translateY(-18px)}
+section{padding-block:64px}
+.sh{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:28px}.sh h2{font-size:clamp(28px,4vw,38px);color:var(--green)}
+.chips{display:flex;gap:8px;flex-wrap:wrap}.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 16px;font-weight:700;font-size:14px;color:var(--mute)}
+.chip[aria-pressed="true"]{background:var(--green);color:#fff;border-color:var(--green)}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.card{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#fff;display:flex;flex-direction:column;transition:box-shadow .2s,transform .2s}
+.card:hover{box-shadow:0 18px 40px -22px rgba(11,61,46,.5);transform:translateY(-3px)}
+.pic{aspect-ratio:1/1;display:block;background:color-mix(in srgb,var(--c) 14%,#fff);border-bottom:1px solid var(--line)}
+.pic svg{width:100%;height:100%;display:block;transition:transform .4s}
+.card:hover .pic svg{transform:scale(1.05) rotate(-1deg)}
+.hero .pic{border:0;border-radius:18px;overflow:hidden}
+.hero .tins .pic:nth-child(2){transform:translateY(-18px)}
+.it .pic{width:52px;height:52px;border-radius:10px;overflow:hidden;border:0}
+.card .b{padding:16px;display:flex;flex-direction:column;gap:6px;flex:1}
+.card h3{font-size:17px;font-weight:700}.card p{color:var(--mute);font-size:14px}
+.card .row{margin-top:auto;padding-top:12px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.price{font-family:var(--font-d);font-weight:700;font-size:18px}.price small{font:600 12px var(--font-b);color:var(--mute)}
+.add{background:var(--saf);color:var(--green);border:0;border-radius:10px;padding:9px 14px;font-weight:800;font-size:14px}.add:hover{filter:brightness(.95)}
+.why{background:var(--green);color:#fff}.why .w{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.why h3{font-size:19px;margin-bottom:6px;color:var(--saf)}.why p{color:#cfe5da;font-size:15px}
+footer{padding-block:30px;color:var(--mute);font-size:14px}footer .w{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:60}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100%);background:#fff;z-index:70;display:flex;flex-direction:column;box-shadow:-20px 0 50px rgba(0,0,0,.2);padding-bottom:env(safe-area-inset-bottom,0px)}
+.dh{display:flex;justify-content:space-between;align-items:center;padding:20px;border-bottom:1px solid var(--line)}.dh h2{font-size:22px;color:var(--green)}
+.x{border:1px solid var(--line);background:#fff;border-radius:10px;width:38px;height:38px;font-size:18px}
+.items{flex:1;overflow:auto;padding:8px 20px}
+.it{display:grid;grid-template-columns:52px 1fr auto;gap:12px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)}
+.it .tin{aspect-ratio:1;border-radius:10px;padding:0;font-size:0}.it .tin::before{display:none}
+.it b{display:block;font-size:15px}.it span{color:var(--mute);font-size:13px}
+.qty{display:flex;align-items:center;gap:8px;margin-top:6px}.qty button{width:28px;height:28px;border-radius:8px;border:1px solid var(--line);background:#fff;font-weight:800}
+.qty em{font-style:normal;min-width:18px;text-align:center;font-weight:700}
+.empty{text-align:center;color:var(--mute);padding:48px 12px}
+.df{padding:20px;border-top:1px solid var(--line);display:grid;gap:12px}
+.bar{height:8px;background:var(--soft);border-radius:99px;overflow:hidden}.bar i{display:block;height:100%;background:var(--saf);width:0;transition:width .3s}
+.tot{display:flex;justify-content:space-between;font-family:var(--font-d);font-weight:700;font-size:20px}
+.btn.full{width:100%;text-align:center}.btn[disabled]{opacity:.5;pointer-events:none}
+#note{font-size:13px;color:var(--green);font-weight:700;min-height:1.2em}
+#ck{display:grid;gap:10px}#ck[hidden]{display:none}
+#ck label{display:grid;gap:4px;font-size:13px;font-weight:700;color:var(--mute)}
+#ck input,#ck textarea{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;font:15px var(--font-b);color:var(--ink);background:#fff}
+.df{max-height:62vh;overflow:auto}
+@media(max-width:960px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero .w{grid-template-columns:1fr}.why .w{grid-template-columns:1fr}nav{display:none}}
+@media(max-width:480px){.grid{gap:12px}.card .b{padding:12px}.card .row{flex-wrap:wrap}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+<div class="demo">Sample online store designed by DP Studio. Chai &amp; Co is fictional, and checkout is a demo.</div>
+<div class="ship">Free shipping on orders above ₹499</div>
+<header><div class="w"><a class="logo" href="#">Chai<i>&amp;</i>Co</a><nav><a href="#shop">Shop</a><a href="#why">Why us</a></nav>
+<button class="cartbtn" id="open" aria-label="Open cart">Cart <b id="cnt">0</b></button></div></header>
+<div class="hero"><div class="w"><div><h1>Single-estate tea, delivered fresh.</h1><p>Small-batch Assam, Darjeeling and Nilgiri teas, packed within a week of dispatch.</p><a class="btn" href="#shop">Shop teas</a></div>
+<div class="tins" id="hero" aria-hidden="true"></div></div></div>
+<section id="shop"><div class="w"><div class="sh"><h2>Shop teas</h2><div class="chips" id="chips"></div></div><div class="grid" id="grid"></div></div></section>
+<section id="why" class="why"><div class="w"><div><h3>Packed to order</h3><p>Tea is packed after you order, not sitting in a warehouse.</p></div><div><h3>Clear origin</h3><p>Every tin names the estate and the harvest.</p></div><div><h3>Easy returns</h3><p>Not happy with a blend? Tell us within seven days.</p></div></div></section>
+<footer><div class="w"><span>© 2026 Chai &amp; Co (demo)</span><span>Store designed and built by DP Studio</span></div></footer>
+<div class="ov" id="ov" hidden></div>
+<aside class="drawer" id="dr" hidden aria-label="Shopping cart"><div class="dh"><h2>Your cart</h2><button class="x" id="close" aria-label="Close cart">✕</button></div><div class="items" id="items"></div>
+<div class="df"><div class="bar"><i id="barfill"></i></div><div id="ship" style="font-size:14px;color:var(--mute)"></div><div class="tot"><span>Subtotal</span><span id="sub">₹0</span></div><button class="btn full" id="chk">Checkout</button>
+<form id="ck" hidden novalidate><label for="cn">Name<input id="cn" autocomplete="name"></label><label for="ce">Email<input id="ce" type="email" autocomplete="email"></label><label for="cp">Phone<input id="cp" type="tel" autocomplete="tel"></label><label for="ca">Delivery address<textarea id="ca" rows="2" autocomplete="street-address"></textarea></label><button class="btn full" type="submit" id="pl">Place order</button></form>
+<div id="note" role="status"></div></div></aside>
+<script>
+var P=[
+{id:1,n:"Assam Breakfast",c:"Black",w:"100g",p:299,bg:"#8a3b12",d:"Malty and strong. Good with milk."},
+{id:2,n:"Darjeeling First Flush",c:"Black",w:"50g",p:449,bg:"#14594a",d:"Light, floral and bright."},
+{id:3,n:"Nilgiri Frost",c:"Black",w:"100g",p:329,bg:"#2b5f8a",d:"Smooth with a clean finish."},
+{id:4,n:"Masala Chai Blend",c:"Spiced",w:"100g",p:279,bg:"#5b2a6e",d:"Cardamom, ginger and cinnamon."},
+{id:5,n:"Kashmiri Kahwa",c:"Spiced",w:"50g",p:399,bg:"#a3522f",d:"Saffron, almond and green tea."},
+{id:6,n:"Tulsi Green",c:"Green",w:"50g",p:249,bg:"#3f7d3a",d:"Holy basil with green tea leaves."},
+{id:7,n:"Jasmine Pearls",c:"Green",w:"50g",p:499,bg:"#6b8e23",d:"Hand-rolled pearls, gently scented."},
+{id:8,n:"Lemongrass Herbal",c:"Herbal",w:"50g",p:219,bg:"#b8860b",d:"Caffeine-free and bright."}];
+var cart={},cat="All",inr=function(n){return "₹"+n.toLocaleString("en-IN")};
+var $=function(i){return document.getElementById(i)};
+function tin(p){var k=p.id,w=p.n.split(" ")[0].toUpperCase();
+return '<div class="pic" style="--c:'+p.bg+'"><svg viewBox="0 0 200 200" role="img" aria-label="'+p.n+' tin"><defs><linearGradient id="g'+k+'" x1="0" x2="1"><stop offset="0" stop-color="'+p.bg+'"/><stop offset=".45" stop-color="'+p.bg+'" stop-opacity=".85"/><stop offset="1" stop-color="#000" stop-opacity=".35"/></linearGradient></defs>'+
+'<ellipse cx="100" cy="176" rx="58" ry="8" fill="#000" opacity=".14"/>'+
+'<rect x="52" y="48" width="96" height="124" rx="12" fill="url(#g'+k+')"/><rect x="52" y="48" width="96" height="124" rx="12" fill="'+p.bg+'" opacity=".55"/>'+
+'<rect x="60" y="54" width="9" height="112" rx="4.5" fill="#fff" opacity=".22"/>'+
+'<rect x="48" y="32" width="104" height="22" rx="7" fill="#1b1b1b" opacity=".85"/><rect x="48" y="32" width="104" height="22" rx="7" fill="'+p.bg+'" opacity=".5"/><rect x="56" y="37" width="88" height="4" rx="2" fill="#fff" opacity=".25"/>'+
+'<rect x="64" y="80" width="72" height="68" rx="6" fill="#fffaf0"/><rect x="68" y="84" width="64" height="60" rx="3" fill="none" stroke="'+p.bg+'" stroke-width="1.2" opacity=".6"/>'+
+'<path d="M100 92c-7 4-9 11-5 17 6-1 10-7 10-13z" fill="'+p.bg+'"/><path d="M100 92c7 4 9 11 5 17-6-1-10-7-10-13z" fill="'+p.bg+'" opacity=".6"/><path d="M100 98v14" stroke="#fffaf0" stroke-width="1.4"/>'+
+'<text x="100" y="127" text-anchor="middle" font-family="Sora,sans-serif" font-weight="800" font-size="'+(w.length>8?10:12)+'" fill="#17231f">'+w+'</text>'+
+'<text x="100" y="139" text-anchor="middle" font-family="Nunito Sans,sans-serif" font-weight="700" font-size="8" letter-spacing="1" fill="#5b6a64">'+p.w.toUpperCase()+' · '+p.c.toUpperCase()+'</text></svg></div>'}
+function chips(){var c=["All","Black","Green","Spiced","Herbal"];$("chips").innerHTML=c.map(function(x){return '<button class="chip" aria-pressed="'+(x===cat)+'" data-c="'+x+'">'+x+'</button>'}).join("")}
+function grid(){$("grid").innerHTML=P.filter(function(p){return cat==="All"||p.c===cat}).map(function(p){
+return '<article class="card">'+tin(p)+'<div class="b"><h3>'+p.n+'</h3><p>'+p.d+'</p><div class="row"><div class="price">'+inr(p.p)+' <small>/ '+p.w+'</small></div><button class="add" data-a="'+p.id+'">Add</button></div></div></article>'}).join("")}
+function render(){var ids=Object.keys(cart),n=0,s=0;
+$("items").innerHTML=ids.length?ids.map(function(id){var p=P.filter(function(x){return x.id==id})[0],q=cart[id];n+=q;s+=q*p.p;
+return '<div class="it">'+tin(p)+'<div><b>'+p.n+'</b><span>'+p.w+' · '+inr(p.p)+'</span><div class="qty"><button data-m="'+id+'" aria-label="Decrease">–</button><em>'+q+'</em><button data-p="'+id+'" aria-label="Increase">+</button></div></div><b>'+inr(p.p*q)+'</b></div>'}).join(""):'<div class="empty">Your cart is empty.<br>Add a tea to get started.</div>';
+$("cnt").textContent=n;$("sub").textContent=inr(s);$("chk").disabled=!n;
+var left=499-s;$("barfill").style.width=Math.min(100,s/499*100)+"%";
+$("ship").textContent=!n?"Free shipping above ₹499":left>0?"Add "+inr(left)+" more for free shipping":"You have free shipping"}
+function show(v){$("dr").hidden=!v;$("ov").hidden=!v;document.body.style.overflow=v?"hidden":""}
+document.addEventListener("click",function(e){var t=e.target;
+if(t.dataset.c){cat=t.dataset.c;chips();grid()}
+if(t.dataset.a){cart[t.dataset.a]=(cart[t.dataset.a]||0)+1;render();show(true)}
+if(t.dataset.p){cart[t.dataset.p]++;render()}
+if(t.dataset.m){if(--cart[t.dataset.m]<1)delete cart[t.dataset.m];render()}});
+$("open").onclick=function(){show(true)};$("close").onclick=$("ov").onclick=function(){show(false)};
+document.addEventListener("keydown",function(e){if(e.key==="Escape")show(false)});
+/* Paste your free access key from web3forms.com (enter your email there and they send the key). */
+var ACCESS_KEY="PASTE_YOUR_WEB3FORMS_KEY";
+function sendMail(subject,fields){
+  if(ACCESS_KEY.indexOf("PASTE")===0)return Promise.reject(new Error("Email is not set up yet. Add the access key."));
+  return fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(Object.assign({access_key:ACCESS_KEY,subject:subject,from_name:"DP Studio"},fields))})
+  .then(function(r){return r.json()}).then(function(j){if(!j.success)throw new Error(j.message||"Could not send.");return j});
+}
+$("chk").onclick=function(){$("ck").hidden=false;$("chk").hidden=true;$("cn").focus()};
+$("ck").addEventListener("submit",function(e){e.preventDefault();
+  var v=function(i){return $(i).value.trim()},note=$("note"),b=$("pl");
+  if(!v("cn")||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v("ce"))||!v("ca")){note.textContent="Enter your name, a valid email and your delivery address.";return}
+  var lines=[],tot=0;Object.keys(cart).forEach(function(id){var p=P.filter(function(x){return x.id==id})[0];tot+=p.p*cart[id];lines.push(p.n+" ("+p.w+") x "+cart[id]+" = "+inr(p.p*cart[id]))});
+  b.disabled=true;note.textContent="Placing order...";
+  sendMail("New order request: Chai & Co",{name:v("cn"),email:v("ce"),phone:v("cp")||"-",address:v("ca"),order:lines.join("\n"),total:inr(tot)})
+  .then(function(){cart={};render();$("ck").reset();$("ck").hidden=true;$("chk").hidden=false;note.textContent="Order request sent. We will contact you to confirm."})
+  .catch(function(err){note.textContent="Could not send: "+err.message}).then(function(){b.disabled=false});
+});
+$("hero").innerHTML=[P[0],P[1],P[3]].map(tin).join("");
+chips();grid();render();
+</script>
+
+</html>
